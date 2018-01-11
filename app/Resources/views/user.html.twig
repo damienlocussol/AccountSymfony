@@ -1,0 +1,128 @@
+{% extends "base.html.twig" %}
+
+	{% block body_content %}
+		<div class="profile-content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="portlet light bordered">
+                        <div class="portlet-title tabbable-line">
+                            <div class="caption caption-md">
+                                <i class="icon-globe theme-font hide"></i>
+                                <span class="caption-subject font-blue-madison bold uppercase">Profile Account</span>
+                            </div>
+                            <ul class="nav nav-tabs">
+                                <li class="active">
+                                    <a href="#tab_1_1" data-toggle="tab">Personal Info</a>
+                                </li>
+                                <li class="">
+                                    <a href="#tab_1_2" data-toggle="tab">Change Info</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="portlet-body">
+                            <div class="tab-content">
+                                <!-- PERSONAL INFO TAB -->
+                                <div class="tab-pane active" id="tab_1_1">
+                                	<p class="control-label">Your Username : {{ app.user.username }}</p>
+                                	<p class="control-label">Your Email : {{ app.user.mail }} </p>
+                                </div>
+                                <!-- END PERSONAL INFO TAB -->
+                                <!-- CHANGE INFO TAB -->
+                                <div class="tab-pane" id="tab_1_2">
+                                	<p class="control-label">Change your Username : </p>
+                                	<p class="control-label">Change your Email : </p>
+                                </div>
+                                <!-- END CHANGE INFO TAB -->
+                            </div>
+                        </div>
+                    </div>
+
+                    {# ACCOUNT & BROKERS #}
+                    <div class="portlet light bordered">
+                        <div class="portlet-title tabbable-line">
+                            <div class="caption caption-md">
+                                <i class="icon-globe theme-font hide"></i>
+                                <span class="caption-subject font-blue-madison bold uppercase">Accounts and Brokers</span>
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                        	{% for account in accounts %}
+                        		<p>{{ account.number }}</p>
+                        	{% endfor %}
+                        </div>
+                    </div>
+
+                    {# ADD ACCOUNT #}
+                    <div class="portlet light bordered">
+                        <div class="portlet-title tabbable-line">
+                            <div class="caption caption-md">
+                                <i class="icon-globe theme-font hide"></i>
+								<span class="caption-subject font-blue-madison bold uppercase">Add an account</span>
+                            </div>
+	                    </div>
+				<div class="portlet-body">
+					{{ form_start(formAccount, {'action': path('user_add'), 'method': 'POST'}) }} 
+				        <div class="form-group">
+				            <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+				            {{ form_label(formAccount.number, 'Account number', {'label_attr': {'class': 'control-label'}}) }}
+				            {{ form_widget(formAccount.number, {'attr' : {'required' : true}}) }}
+				        </div>
+				        <div class="form-group">
+				            {{ form_label(formAccount.pwd, 'Account password', {'label_attr': {'class': 'control-label'}}) }}
+				            {{ form_widget(formAccount.pwd) }}
+				        </div>
+				        <div class="form-group">
+				            {{ form_label(formAccount.apikey, 'Account apikey', {'label_attr': {'class': 'control-label'}}) }}
+				            {{ form_widget(formAccount.apikey) }}
+				        </div>
+				        <div class="form-group">
+				            {{ form_label(formAccount.broker, 'Account broker', {'label_attr': {'class': 'control-label'}}) }}
+				            {{ form_widget(formAccount.broker) }}
+				        </div>
+				        <div class="form-actions">
+				        	{{ form_widget(formAccount.add)}}
+				        	<span id="responseTest"></span>
+				        	{# {{ form_widget(formAccount.test)}} #}
+				        	{# {% if app.request.get('err') %} test result : {{ app.request.get('err') }} {% endif %} #}
+                    		
+				            {# <input type="hidden" name="_target_path" value="/add" /> #}
+				        </div>
+				    {{ form_end(formAccount) }}
+				</div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+	{% endblock body_content %}
+
+	{% block body_title %}
+        <!-- BEGIN PAGE TITLE -->
+        <div class="page-title">
+            <h1>User Profile <small>user account page</small></h1>
+        </div>
+        <!-- END PAGE TITLE -->
+    {% endblock body_title %}
+
+    {% block javascripts_footer %}
+    	{{ parent() }}
+    	<script>
+    		$('#sendTest').submit(function(e) {
+    			e.preventDefault();
+    			console.log("submit");
+	   			$.ajax({
+		            type: $(this).attr('method'),
+		            url: $(this).attr('action'),
+		            data: $(this).serialize()
+		        })
+		        .done(function (data) {
+		            console.log(data.message);
+		            $('#responseTest').html(' Test Result : '+data.message);
+		        })
+		        .fail(function (jqXHR, textStatus, errorThrown) {
+
+		        });
+    		});
+    	</script>
+    {% endblock javascripts_footer %}

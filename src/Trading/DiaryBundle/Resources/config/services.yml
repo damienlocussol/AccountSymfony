@@ -1,0 +1,6 @@
+services:
+#    trading_diary.example:
+#        class: Trading\DiaryBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+
+

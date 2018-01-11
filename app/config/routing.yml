@@ -1,0 +1,44 @@
+# trading_diary:
+#     resource: "@TradingDiaryBundle/Resources/config/routing.yml"
+#     prefix:   /
+
+# app:
+#     resource: '@AppBundle/Controller/'
+#     type: annotation
+
+
+
+
+trading_diary_home:
+    path:       /
+    defaults: { _controller: TradingEnterBundle:Security:login}
+
+home:
+    path:       /home
+    defaults : { _controller: TradingDiaryBundle:Accounts:accounts}
+
+login:
+    path:       /login
+    defaults: { _controller: TradingEnterBundle:Security:login}
+    
+login_check:
+    path:       /login_check
+    
+logout:
+    path:       /logout
+
+register:
+    path:       /register
+    defaults : { _controller: TradingEnterBundle:Registration:register}
+
+user:
+    path:       /user
+    defaults : { _controller: TradingDiaryBundle:User:user}
+
+accounts:
+    path:       /accounts
+    defaults : { _controller: TradingDiaryBundle:Accounts:accounts}
+
+user_add:
+    path:       /user_add
+    defaults : { _controller: TradingDiaryBundle:User:add}

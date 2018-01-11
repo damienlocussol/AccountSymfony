@@ -1,0 +1,71 @@
+{% extends "base.html.twig" %}
+
+    {% block head_stylesheets %}
+        {{ parent() }}
+        <link href="{{ asset('theme/metropix/pages/css/login.min.css') }}" rel="stylesheet" type="text/css" />
+    {% endblock head_stylesheets %}
+    
+    {% block body_class %}login{% endblock body_class %}
+
+    {% block header %}{% endblock %} 
+    
+    {% block page %}
+        <!-- BEGIN LOGIN -->
+        <div class="content">
+            <!-- BEGIN REGISTRATION LOGIN FORM -->      
+
+            {{ form_start(formRegister) }}
+                    <h3 class="form-title font-green">Registration</h3>
+{#                     <div class="alert alert-danger {% if error == false %}display-hide{% endif %} ">
+                        <button class="close" data-close="alert"></button>
+                        <span> Enter any username and password. </span>
+                    </div> #}
+                    <div class="form-group">
+                        <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                        {{ form_label(formRegister.username) }}
+                        {{ form_widget(formRegister.username) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(formRegister.mail) }}
+                        {{ form_widget(formRegister.mail) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(formRegister.plainPassword.first) }}
+                        {{ form_widget(formRegister.plainPassword.first) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(formRegister.plainPassword.second) }}
+                        {{ form_widget(formRegister.plainPassword.second) }}
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn green uppercase">Register</button>
+                        {# <input type="hidden" name="_target_path" value="/home" /> #}
+                    </div>
+
+                    <div class="create-account">
+                        <p>
+                            <a href="{{ path('login') }}" class="uppercase">Back to Login</a>
+                        </p>
+                    </div>
+            {{ form_end(formRegister) }} 
+            <!-- END REGISTRATION LOGIN FORM -->
+        </div>
+    {% endblock page %}
+    
+    {% block footer %}{% endblock footer %}
+    
+    {% block javascripts_footer %}
+        {{ parent() }}
+        <!-- BEGIN PAGE LEVEL SCRIPTS -->
+        <script src="{{ asset('theme/metropix/pages/scripts/login.min.js') }}" type="text/javascript"></script>
+        <!-- END PAGE LEVEL SCRIPTS -->
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <script src="{{ asset('theme/metropix/global/plugins/jquery-validation/js/jquery.validate.min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('theme/metropix/global/plugins/jquery-validation/js/additional-methods.min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('theme/metropix/global/plugins/select2/js/select2.full.min.js') }}" type="text/javascript"></script>
+        <!-- END PAGE LEVEL PLUGINS -->
+    {% endblock javascripts_footer %}
+
+
+
+
